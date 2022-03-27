@@ -20,6 +20,33 @@ Simple DynDNS service for update AWS Route53 backend. Open Source Java project u
     name1.acme.org=AWSZONEID...A
     name2.acme.com=AWSZONEID...B
 
+#### AWS-Credentials
+
+See AWS documentation in [DefaultCredentialsProvider](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/DefaultCredentialsProvider.html) and [developer-guide](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-additional.html).
+
+If your plan to run webapp inside EC2, you can use EC2-role. This is a sample policy:
+
+	{
+	    "Version": "2012-10-17",
+	    "Statement": [
+	        {
+	            "Effect": "Allow",
+	            "Action": [
+	                "route53:Get*",
+	                "route53:List*",
+	                "route53:TestDNSAnswer"
+	            ],
+	            "Resource": [
+	                "*"
+	            ]
+	        },   
+	        {
+	            "Effect": "Allow",
+	            "Action": "route53:ChangeResourceRecordSets",
+	            "Resource": "arn:aws:route53:::hostedzone/YOUR-AWS-ZONE-ID"
+	        }
+	    ]
+	}
 
 ## API Usage
 
