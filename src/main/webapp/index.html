@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<head>
+<!-- SRI Hash Generator: www.srihash.org -->
+<STYLE type="text/css">
+/* http://www.cssportal.com/css-properties/ */
+html {
+	font-size: 80%;
+}
+
+html,body {
+	padding-left: 3px;
+	font-family: Verdana;
+	background-color: white;
+	color: black;
+}
+
+input {
+	vertical-align: bottom;
+	color: black;
+	border: 1px solid grey;
+}
+
+input[type="text"],input[type="password"],input[type="submit"] {
+	margin-top: 2px;
+	width: 365px;
+}
+
+.format {
+	font-weight: bold;
+	background-color: yellow;
+}
+
+.title {
+	font-size: 42px;
+	font-family: Terminal;
+	font-weight: bold;
+	color: rgb(0, 127, 0);
+}
+.form {
+	float: left;
+}
+a:link    { color: #007F00; }  /* unvisited  */
+a:visited { color: #007F00; }  /* visited    */
+a:hover   { color: #FF00FF; }  /* mouse over */
+a:active  { color: #0000FF; }  /* selected   */ 
+
+</STYLE>
+</head>
+<body>
+	<DIV CLASS="title">jUpdate53::PUT</DIV>
+
+	<DIV CLASS="form">
+	<FORM NAME="jUpdate53" METHOD="POST"
+		ENCTYPE="application/x-www-form-urlencoded"
+		onSubmit="t.request(); return false;">
+		<p>
+			AWS ZoneID:<br />
+			<INPUT TYPE="TEXT" id="zoneid" VALUE="">
+		<p>
+			FQDN:<br />
+			<INPUT TYPE="TEXT" id="fqdn" VALUE="">
+		<p>
+			TTL:<br />
+			<INPUT TYPE="TEXT" id="ttl" VALUE="3">
+		<p>
+			Response:<br />
+			<INPUT TYPE="TEXT" id="response" VALUE="">
+		<p>
+			<br />
+			<INPUT TYPE="SUBMIT" VALUE="Update">
+	</FORM>
+	</DIV>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="//code.jquery.com/jquery-3.5.0.min.js" integrity="sha384-LVoNJ6yst/aLxKvxwp6s2GAabqPczfWh6xzm38S/YtjUyZ+3aTKOnD/OJVGYLZDl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	var post = "update";
+	var baseURL = $(location).attr('href');
+	var t = {
+		request : function() {
+			t.update('Wait...');
+			$.ajax(post, {
+				type: 'POST',
+				data: {
+					zoneid: $('#zoneid').val(),
+					fqdn: $('#fqdn').val(),
+					ttl: $('#ttl').val()
+				}
+			}).done(function(response) {
+				t.update(response.status);
+			}).fail(function(jqXHR, textStatus, errorThrown) {
+				$('#response').val('Failed: ' + textStatus + " " + jqXHR.status + ": " + jqXHR.responseText);
+				console.log('failed: ' + textStatus + " " + jqXHR.status + ": " + jqXHR.responseText);
+			});
+		},
+		update : function(status) {
+			$('#response').val(status);
+		}
+	};
+</script>
+</body>
+</html>
